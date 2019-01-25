@@ -62,17 +62,9 @@ export class MongooseService<T> implements ServiceInterface<T>, InjectorAwareInt
     const criteria = query && query.where ? query.where : {};
     const modelQuery = this.getModel().find(criteria).lean(true);
 
-    if (query && query.sort) {
-      modelQuery.sort(query.sort);
-    }
-
-    if (query && query.limit) {
-      modelQuery.limit(query.limit);
-    }
-
-    if (query && query.skip) {
-      modelQuery.skip(query.skip);
-    }
+    if (query && query.sort) modelQuery.sort(query.sort);
+    if (query && query.limit) modelQuery.limit(query.limit);
+    if (query && query.skip) modelQuery.skip(query.skip);
 
     return await modelQuery.lean(true).exec();
   }
