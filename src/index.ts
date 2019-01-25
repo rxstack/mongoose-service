@@ -1,0 +1,3 @@
+export * from './interfaces';
+export * from './mongoose-service';
+export * from './mongoose-service.module';
