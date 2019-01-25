@@ -4,6 +4,6 @@ services:
     mongo:
         image: mongo
         ports:
-            - 27030:27017
+            - 27017:27017
 
 
