@@ -10,7 +10,9 @@ export class MongooseService<T> implements ServiceInterface<T>, InjectorAwareInt
 
   protected injector: Injector;
 
-  constructor(public options: MongooseServiceOptions) { }
+  constructor(public options: MongooseServiceOptions) {
+    options.supportDotNotation = true;
+  }
 
   setInjector(injector: Injector): void {
     this.injector = injector;
