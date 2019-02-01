@@ -1,9 +1,9 @@
+require('dotenv').config();
 import 'reflect-metadata';
 import {Application} from '@rxstack/core';
-import {mongodbUri, MONGOOSE_SERVICE_OPTIONS, TASK_SERVICE} from './mocks/MEMORY_SERVICE_OPTIONS';
+import {MONGOOSE_SERVICE_OPTIONS, TASK_SERVICE} from './mocks/MONGOOSE_SERVICE_OPTIONS';
 import {Injector} from 'injection-js';
 import {MongooseService} from '../src';
-import {Connection} from 'mongoose';
 import {data1} from './mocks/data';
 import {Task} from './mocks/task';
 import {PURGER_SERVICE} from '@rxstack/data-fixtures';
@@ -17,12 +17,10 @@ describe('MongooseService:Impl', () => {
   before(async() =>  {
     await app.start();
     injector = app.getInjector();
-    if (injector.get(Connection).readyState === 0) await injector.get(Connection).openUri(mongodbUri);
     service = injector.get(TASK_SERVICE);
   });
 
   after(async() =>  {
-    await injector.get(Connection).close();
     await app.stop();
   });
 

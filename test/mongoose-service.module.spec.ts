@@ -1,7 +1,8 @@
+require('dotenv').config();
 import 'reflect-metadata';
 import {Application} from '@rxstack/core';
 import {Injector} from 'injection-js';
-import {mongodbUri, MONGOOSE_SERVICE_OPTIONS, TASK_SERVICE} from './mocks/MEMORY_SERVICE_OPTIONS';
+import {MONGOOSE_SERVICE_OPTIONS, TASK_SERVICE} from './mocks/MONGOOSE_SERVICE_OPTIONS';
 import {MongooseService} from '../src';
 import {Connection} from 'mongoose';
 
@@ -13,11 +14,9 @@ describe('MongooseService:MongooseServiceModule', () => {
   before(async() =>  {
     await app.start();
     injector = app.getInjector();
-    if (injector.get(Connection).readyState === 0) await injector.get(Connection).openUri(mongodbUri);
   });
 
   after(async() =>  {
-    await injector.get(Connection).close();
     await app.stop();
   });
 

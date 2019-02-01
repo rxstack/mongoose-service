@@ -12,7 +12,7 @@
 npm install @rxstack/mongoose-service --save
 
 // peer depencencies
-npm install @rxstack/core@^0.1 @rxstack/data-fixtures@^0.1 @rxstack/platform@^0.1 @rxstack/security@^0.1
+npm install @rxstack/core@^0.1 @rxstack/data-fixtures@^0.1 @rxstack/platform@^0.1 @rxstack/query-filter@^0.1 @rxstack/security@^0.1
 
 ```
 

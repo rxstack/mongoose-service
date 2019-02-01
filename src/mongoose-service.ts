@@ -3,16 +3,14 @@ import {QueryInterface} from '@rxstack/query-filter';
 import {Injectable, Injector} from 'injection-js';
 import {InjectorAwareInterface} from '@rxstack/core';
 import {MongooseServiceOptions} from './interfaces';
-import {Connection, Model} from 'mongoose';
+import {Model} from 'mongoose';
 
 @Injectable()
 export class MongooseService<T> implements ServiceInterface<T>, InjectorAwareInterface {
 
   protected injector: Injector;
 
-  constructor(public options: MongooseServiceOptions) {
-    options.supportDotNotation = true;
-  }
+  constructor(public options: MongooseServiceOptions) { }
 
   setInjector(injector: Injector): void {
     this.injector = injector;
@@ -61,17 +59,15 @@ export class MongooseService<T> implements ServiceInterface<T>, InjectorAwareInt
   }
 
   async findMany(query?: QueryInterface): Promise<T[]> {
-    const criteria = query && query.where ? query.where : {};
-    const modelQuery = this.getModel().find(criteria).lean(true);
-
-    if (query && query.sort) modelQuery.sort(query.sort);
-    if (query && query.limit) modelQuery.limit(query.limit);
-    if (query && query.skip) modelQuery.skip(query.skip);
-
+    query = Object.assign({where: {}, limit: this.options.defaultLimit, skip: 0, sort: null}, query);
+    const modelQuery = this.getModel().find(query.where);
+    modelQuery.sort(query.sort);
+    modelQuery.limit(query.limit);
+    modelQuery.skip(query.skip);
     return await modelQuery.lean(true).exec();
   }
 
   protected getModel(): Model<any> {
-    return this.injector.get(Connection).model(this.options.name, this.options.schema, this.options.collection);
+    return this.options.model;
   }
 }

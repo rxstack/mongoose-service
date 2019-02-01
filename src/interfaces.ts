@@ -1,5 +1,5 @@
 import {ServiceOptions} from '@rxstack/platform';
-import {ConnectionOptions, Schema} from 'mongoose';
+import {ConnectionOptions, Model} from 'mongoose';
 
 export interface MongooseServiceModuleOptions {
   connection: {
@@ -9,7 +9,5 @@ export interface MongooseServiceModuleOptions {
 }
 
 export interface MongooseServiceOptions extends ServiceOptions {
-  name: string;
-  schema?: Schema;
-  collection?: string;
+  model: Model<any>;
 }
