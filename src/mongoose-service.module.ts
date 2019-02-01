@@ -8,12 +8,11 @@ mongoose.Promise = global.Promise;
 
 const winstonLogger = require('winston');
 
-mongoose.set('debug', (collectionName: string, method: string, query: Object, doc: any, optins: any) => {
+mongoose.set('debug', (collectionName: string, method: string, query: Object, doc: any) => {
   winstonLogger.log('debug', 'Mongoose', {
     'method': `${collectionName}.${method}`,
     'query': query,
-    'doc': doc,
-    'options': optins
+    'doc': doc
   });
 });
 
