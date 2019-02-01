@@ -13,13 +13,3 @@ export const data1 = [
     completed: true
   }
 ];
-
-export const users = [
-  {
-    username: 'admin',
-    password: 'admin',
-    roles: [
-      'ROLE_ADMIN'
-    ]
-  }
-];

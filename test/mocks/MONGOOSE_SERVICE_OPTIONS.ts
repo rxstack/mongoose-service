@@ -17,7 +17,8 @@ export const MONGOOSE_SERVICE_OPTIONS: ApplicationOptions = {
     connection: {
       uri: process.env.MONGO_HOST,
       options: {
-        useMongoClient: true
+        useNewUrlParser: true,
+        useCreateIndex: true,
       }
     }
   })],
@@ -26,7 +27,7 @@ export const MONGOOSE_SERVICE_OPTIONS: ApplicationOptions = {
       provide: TASK_SERVICE,
       useFactory: (conn: Connection) => {
         return new MongooseService({
-          idField: 'id', defaultLimit: 25, model: conn.model('Task', taskMongooseSchema)
+          idField: '_id', defaultLimit: 25, model: conn.model('Task', taskMongooseSchema)
         });
       },
       deps: [Connection],

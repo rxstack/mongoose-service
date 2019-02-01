@@ -27,8 +27,7 @@ export class MongooseService<T> implements ServiceInterface<T>, InjectorAwareInt
   }
 
   async updateOne(id: any, data: Object): Promise<void> {
-    const modelQuery = this.getModel()
-      .findByIdAndUpdate(id, data, {'new': true, 'runValidators': true});
+    const modelQuery = this.getModel().updateOne({[this.options.idField]: id}, data);
     await modelQuery.lean(true).exec();
   }
 
@@ -38,16 +37,16 @@ export class MongooseService<T> implements ServiceInterface<T>, InjectorAwareInt
   }
 
   async removeOne(id: any): Promise<void> {
-    await this.getModel().findByIdAndRemove(id).exec();
+    await this.getModel().deleteOne({[this.options.idField]: id}).exec();
   }
 
   async removeMany(criteria: Object): Promise<number> {
     const result = await this.getModel().deleteMany(criteria).lean(true).exec();
-    return parseInt(result['result']['n']);
+    return parseInt(result['deletedCount']);
   }
 
   async count(criteria?: Object, options?: any): Promise<number> {
-    return await this.getModel().find(criteria, null, options).count().exec();
+    return await this.getModel().find(criteria, null, options).countDocuments().exec();
   }
 
   async find(id: any): Promise<T> {
