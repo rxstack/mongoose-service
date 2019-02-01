@@ -1,3 +1,4 @@
+process.env.MONGO_HOST = process.env.MONGO_HOST || 'mongodb://mongo:27017/test'
 import {ApplicationOptions} from '@rxstack/core';
 import {
   MongooseService, MongooseServiceModule

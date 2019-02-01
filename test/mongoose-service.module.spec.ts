@@ -1,4 +1,3 @@
-require('dotenv').config();
 import 'reflect-metadata';
 import {Application} from '@rxstack/core';
 import {Injector} from 'injection-js';

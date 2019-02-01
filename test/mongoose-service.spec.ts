@@ -1,4 +1,3 @@
-require('dotenv').config();
 import 'reflect-metadata';
 import {Application} from '@rxstack/core';
 import {MONGOOSE_SERVICE_OPTIONS, TASK_SERVICE} from './mocks/MONGOOSE_SERVICE_OPTIONS';
