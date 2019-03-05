@@ -9,11 +9,11 @@ export const taskMongooseSchema = new Schema({
   name: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   completed: {
     type: Boolean,
     default: false,
     required: false
-  }
+  },
 }, {_id: false, versionKey: false });

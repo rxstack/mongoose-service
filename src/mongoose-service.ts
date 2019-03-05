@@ -27,12 +27,16 @@ export class MongooseService<T> implements ServiceInterface<T>, InjectorAwareInt
   }
 
   async updateOne(id: any, data: Object): Promise<void> {
-    const modelQuery = this.getModel().updateOne({[this.options.idField]: id}, data);
+    const modelQuery = this.getModel().updateOne({[this.options.idField]: id}, data, {
+      'new': true, runValidators: true
+    });
     await modelQuery.lean(true).exec();
   }
 
   async updateMany(criteria: Object, data: Object): Promise<number> {
-    const result = await this.getModel().updateMany(criteria, data).exec();
+    const result = await this.getModel().updateMany(criteria, data, {
+      runValidators: true
+    }).exec();
     return parseInt(result['nModified']);
   }
 

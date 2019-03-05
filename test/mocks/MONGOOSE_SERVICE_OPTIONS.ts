@@ -6,8 +6,6 @@ import {
 import {InjectionToken} from 'injection-js';
 import {Task} from './task';
 import {taskMongooseSchema} from './task.mongoose.schema';
-import {MongoosePurger} from '../../src/mongoose-purger';
-import {PURGER_SERVICE} from '@rxstack/data-fixtures';
 import {Connection} from 'mongoose';
 
 export const TASK_SERVICE = new InjectionToken<MongooseService<Task>>('TASK_SERVICE');
@@ -20,6 +18,9 @@ export const MONGOOSE_SERVICE_OPTIONS: ApplicationOptions = {
         useNewUrlParser: true,
         useCreateIndex: true,
       }
+    },
+    logger: {
+      enabled: true
     }
   })],
   providers: [
@@ -32,7 +33,6 @@ export const MONGOOSE_SERVICE_OPTIONS: ApplicationOptions = {
       },
       deps: [Connection],
     },
-    { provide: PURGER_SERVICE, useClass: MongoosePurger },
   ],
   logger: {
     handlers: [

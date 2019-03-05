@@ -5,7 +5,7 @@ import {Injector} from 'injection-js';
 import {MongooseService} from '../src';
 import {data1} from './mocks/data';
 import {Task} from './mocks/task';
-import {PURGER_SERVICE} from '@rxstack/data-fixtures';
+import {Connection} from 'mongoose';
 
 describe('MongooseService:Impl', () => {
   // Setup application
@@ -24,7 +24,7 @@ describe('MongooseService:Impl', () => {
   });
 
   beforeEach(async () => {
-    await injector.get(PURGER_SERVICE).purge();
+    await injector.get(Connection).dropDatabase();
   });
 
   it('#insertOne', async () => {

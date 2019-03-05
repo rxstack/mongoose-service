@@ -1,5 +1,5 @@
 export * from './interfaces';
 export * from './mongoose-service';
+export * from './validation.observer';
 export * from './mongoose-service.module';
-export * from './mongoose-purger';
 export * from './commands';

@@ -1,6 +1,6 @@
 {
   "name": "@rxstack/mongoose-service",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "RxStack Mongoose Service",
   "private": false,
   "author": "Nikolay Georgiev <symfonist@gmail.com>",
@@ -14,6 +14,7 @@
   },
   "keywords": [
     "rxstack",
+    "platform",
     "mongodb",
     "mongoose"
   ],
@@ -30,35 +31,32 @@
   },
   "peerDependencies": {
     "@rxstack/core": "^0.1",
-    "@rxstack/data-fixtures": "^0.1",
     "@rxstack/exceptions": "^0.1",
     "@rxstack/platform": "^0.1",
     "@rxstack/query-filter": "^0.1",
     "@rxstack/security": "^0.1"
   },
   "dependencies": {
-    "@types/mongodb": "^3.1.19",
-    "@types/mongoose": "^5.3.12",
+    "@types/mongoose": "^5.3.20",
     "injection-js": "^2.1",
     "mongodb": "^3.1.13",
-    "mongoose": "^5.4.8",
+    "mongoose": "^5.4.17",
     "reflect-metadata": "^0.1"
   },
   "devDependencies": {
     "@types/chai": "^4.1.2",
-    "@types/lodash": "^4.14.119",
+    "@types/lodash": "^4.14.122",
     "@types/mocha": "^2.2.48",
-    "@types/node": "^7.10.2",
+    "@types/node": "^11.10.4",
     "chai": "3.5.0",
-    "istanbul": "0.4.5",
     "mocha": "^5.2.0",
-    "nyc": "^11.0.3",
+    "nyc": "^13.3.0",
     "should": "^13.2.3",
     "sinon": "^6.3.4",
     "source-map-support": "^0.4.15",
     "ts-node": "^3.1.0",
-    "tslint": "^5.12.1",
-    "typescript": "^3.2.2",
+    "tslint": "^5.13.1",
+    "typescript": "^3.3.3333",
     "uuid": "^3.3.2"
   },
   "bugs": {
@@ -71,17 +69,8 @@
     "LICENSE"
   ],
   "nyc": {
-    "include": [
-      "./src/**/*.ts"
-    ],
-    "exclude": [
-      "./test/**/*.spec.ts"
-    ],
     "extension": [
       ".ts"
-    ],
-    "require": [
-      "ts-node/register"
     ],
     "reporter": [
       "text-summary",
