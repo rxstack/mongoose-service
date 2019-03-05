@@ -14,10 +14,10 @@ export class EnsureIndexesCommand extends AbstractCommand {
     console.log(chalk.blue('Ensuring indexes ...'));
     const conn = this.injector.get(Connection);
     const models = keys(conn.models);
-    for await (const key of models) {
-      const model = conn.model(key);
+    for (let i = 0; i < models.length; i++) {
+      const model = conn.model(models[i]);
       await model.ensureIndexes({});
-      console.log(chalk.gray(`Updating model "${key}" ...`));
+      console.log(chalk.gray(`Updating model "${models[i]}" ...`));
     }
     console.log(chalk.green('Indexes have been update.'));
   }
