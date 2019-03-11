@@ -54,7 +54,7 @@ export class MongooseService<T> implements ServiceInterface<T>, InjectorAwareInt
   }
 
   async find(id: any, options?: any): Promise<T> {
-    return await this.getModel().findById(id, this.getProjection(options), options).lean(true).exec();
+    return await this.findOne({[this.options.idField]: id});
   }
 
   async findOne(criteria: Object, options?: any): Promise<T> {
