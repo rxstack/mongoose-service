@@ -92,6 +92,12 @@ describe('MongooseService:Impl', () => {
     result[0].name.should.be.equal('task-2');
   });
 
+  it('#findMany with projection', async () => {
+    await service.insertMany(data1);
+    const result = await service.findMany({'where': {}, limit: 1, skip: 0}, {'projection': {'completed': 1}});
+    (typeof result[0]['name']).should.be.equal('undefined');
+  });
+
   it('#count', async () => {
     await service.insertMany(data1);
     const result = await service.count();

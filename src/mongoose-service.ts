@@ -16,27 +16,27 @@ export class MongooseService<T> implements ServiceInterface<T>, InjectorAwareInt
     this.injector = injector;
   }
 
-  async insertOne(data: Object): Promise<T> {
-    const result = await this.getModel().create(data);
+  async insertOne(data: Object, options?: any): Promise<T> {
+    const result = await this.getModel().create(data, options);
     return result.toObject();
   }
 
-  async insertMany(data: Object[]): Promise<T[]> {
-    const result = await this.getModel().create(data);
-    return result.map((item) => item.toObject());
+  async insertMany(data: Object[], options?: any): Promise<T[]> {
+    const result = await this.getModel().create(data, options);
+    return result.map((item: any) => item.toObject());
   }
 
-  async updateOne(id: any, data: Object): Promise<void> {
-    const modelQuery = this.getModel().updateOne({[this.options.idField]: id}, data, {
-      'new': true, runValidators: true
-    });
+  async updateOne(id: any, data: Object, options?: any): Promise<void> {
+    const modelQuery = this.getModel().updateOne({[this.options.idField]: id}, data, Object.assign(
+      { 'new': true, runValidators: true }, options
+    ));
     await modelQuery.lean(true).exec();
   }
 
-  async updateMany(criteria: Object, data: Object): Promise<number> {
-    const result = await this.getModel().updateMany(criteria, data, {
-      runValidators: true
-    }).exec();
+  async updateMany(criteria: Object, data: Object, options?: any): Promise<number> {
+    const result = await this.getModel().updateMany(criteria, data, Object.assign(
+      { runValidators: true }, options
+    )).exec();
     return parseInt(result['nModified']);
   }
 
@@ -53,17 +53,17 @@ export class MongooseService<T> implements ServiceInterface<T>, InjectorAwareInt
     return await this.getModel().find(criteria, null, options).countDocuments().exec();
   }
 
-  async find(id: any): Promise<T> {
-    return await this.getModel().findById(id).lean(true).exec();
+  async find(id: any, options?: any): Promise<T> {
+    return await this.getModel().findById(id, this.getProjection(options), options).lean(true).exec();
   }
 
-  async findOne(criteria: Object): Promise<T> {
-    return await this.getModel().findOne(criteria).lean(true).exec();
+  async findOne(criteria: Object, options?: any): Promise<T> {
+    return await this.getModel().findOne(criteria, this.getProjection(options), options).lean(true).exec();
   }
 
-  async findMany(query?: QueryInterface): Promise<T[]> {
+  async findMany(query?: QueryInterface, options?: any): Promise<T[]> {
     query = Object.assign({where: {}, limit: this.options.defaultLimit, skip: 0, sort: null}, query);
-    const modelQuery = this.getModel().find(query.where);
+    const modelQuery = this.getModel().find(query.where, this.getProjection(options), options);
     modelQuery.sort(query.sort);
     modelQuery.limit(query.limit);
     modelQuery.skip(query.skip);
@@ -72,5 +72,13 @@ export class MongooseService<T> implements ServiceInterface<T>, InjectorAwareInt
 
   protected getModel(): Model<any> {
     return this.options.model;
+  }
+
+  private getProjection(options: any): Object {
+    if (options && options['projection']) {
+      const projection = options['projection'];
+      delete options['projection'];
+      return projection;
+    }
   }
 }

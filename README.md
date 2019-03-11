@@ -16,7 +16,7 @@
 - [Service Options](#service-options)
 - [Usage](#usage)
 - [Commands](#commands)
-    - [Ensure Endexes](#commands-ensure-endexes)
+    - [Ensure Endexes](#commands-ensure-indexes)
     - [Drop Database](#commands-drop-database)
 - [Validation Observer](#validation-observer)
 
@@ -27,7 +27,7 @@
 npm install @rxstack/mongoose-service --save
 
 // peer depencencies
-npm install @rxstack/core@^0.1 @rxstack/data-fixtures@^0.1 @rxstack/platform@^0.1 @rxstack/query-filter@^0.1 @rxstack/security@^0.1
+npm install @rxstack/core@^0.1 @rxstack/exceptions@^0.1  @rxstack/platform@^0.1.10 @rxstack/query-filter@^0.1 @rxstack/security@^0.1
 
 ```
 
@@ -36,7 +36,7 @@ npm install @rxstack/core@^0.1 @rxstack/data-fixtures@^0.1 @rxstack/platform@^0.
 
 ```typescript
 import {Application, ApplicationOptions} from '@rxstack/core';
-import {MongooseServiceModule} from '@rxstack/memory-mongoose';
+import {MongooseServiceModule} from '@rxstack/mongoose-service';
 
 export const APP_OPTIONS: ApplicationOptions = {
   imports: [
@@ -77,6 +77,7 @@ we need to set the following options:
 
 ## <a name="usage"></a>  Usage
 
+### <a name="usage-create-interfaces"></a>  Create interfaces
 First we need to create `model interface` and `InjectionToken`:
 
 ```typescript
@@ -91,7 +92,7 @@ export interface Product {
 export const PRODUCT_SERVICE = new InjectionToken<MongooseService<Product>>('PRODUCT_SERVICE');
 ```
 
-then we need to create the `mongoose` schema:
+### <a name="usage-models"></a> Create mongoose models
 
 ```typescript
 import { Schema } from 'mongoose';
@@ -133,12 +134,30 @@ export const APP_OPTIONS: ApplicationOptions = {
 };
 ```
 
-if you need to get mongoose `Connection`:
+### <a name="usage-controller"></a> How to use in controller
+
 
 ```typescript
 import {Connection} from 'mongoose';
+import {Injectable} from 'injection-js';
+import {Http, Logger, Request, Response, WebSocket, InjectorAwareInterface} from '@rxstack/core';
 
-const connection = injector.get(Connection); // instance of mongoose connection
+@Injectable()
+export class ProductController implements InjectorAwareInterface {
+
+  @Http('POST', '/product', 'app_product_create')
+  @WebSocket('app_product_create')
+  async createAction(request: Request): Promise<Response> {
+    // getting connection
+    const connection = injector.get(Connection);
+   
+    // standard use
+    const service = this.injector.get(PRODUCT_SERVICE);
+    await service.insertOne(request.body);
+    // with options
+    await service.insertOne(request.body, {projection: {name: 1}});
+  }
+}
 ```
 
 [Read more about platform services](https://github.com/rxstack/rxstack/tree/master/packages/platform#services)
@@ -163,25 +182,7 @@ npm run cli mongoose:drop
 ## <a name="validation-observer"></a>  Validation Observer
 `ValidationObserver` converts mongoose errors to `BadRequestException`.
 
-For example we have the following code:
-
-```typescript
-import {Injectable} from 'injection-js';
-import {Http, Logger, Request, Response, WebSocket} from '@rxstack/core';
-
-@Injectable()
-export class ProductController {
-
-  @Http('POST', '/product', 'app_product_create')
-  @WebSocket('app_product_create')
-  async createAction(request: Request): Promise<Response> {
-    const service = this.injector.get(PRODUCT_SERVICE);
-    await service.insertOne(request.body); // it should throw mongoose ValidationError if data is not valid
-  }
-}
-```
-
-to return proper validation errors and status code `400 ` we catch the exception and throw `BadRequestException`.
+In order to return proper validation errors and status code `400 ` we catch the exception and throw `BadRequestException`.
 The error messages can be accessed `exception.data['errors']` and implement [`ValidationError[]`](https://github.com/rxstack/rxstack/tree/master/packages/platform/src).
 
 ## License
