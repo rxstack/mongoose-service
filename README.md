@@ -15,6 +15,9 @@
 - [Module Options](#module-options)
 - [Service Options](#service-options)
 - [Usage](#usage)
+    - [Create interfaces](#usage-create-interfaces)
+    - [Create mongoose schemas](#usage-schemas)
+    - [How to use in controller](#usage-controller)
 - [Commands](#commands)
     - [Ensure Endexes](#commands-ensure-indexes)
     - [Drop Database](#commands-drop-database)
@@ -92,7 +95,7 @@ export interface Product {
 export const PRODUCT_SERVICE = new InjectionToken<MongooseService<Product>>('PRODUCT_SERVICE');
 ```
 
-### <a name="usage-models"></a> Create mongoose models
+### <a name="usage-schemas"></a> Create mongoose schemas
 
 ```typescript
 import { Schema } from 'mongoose';
@@ -154,7 +157,7 @@ export class ProductController implements InjectorAwareInterface {
     // standard use
     const service = this.injector.get(PRODUCT_SERVICE);
     await service.insertOne(request.body);
-    // with options
+    // with driver specific options
     await service.insertOne(request.body, {projection: {name: 1}});
   }
 }
