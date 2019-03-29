@@ -1,6 +1,6 @@
 {
   "name": "@rxstack/mongoose-service",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "RxStack Mongoose Service",
   "private": false,
   "author": "Nikolay Georgiev <symfonist@gmail.com>",
@@ -14,6 +14,7 @@
   },
   "keywords": [
     "rxstack",
+    "platform",
     "mongodb",
     "mongoose"
   ],
@@ -29,29 +30,31 @@
     "test": "npm run lint && npm run coverage"
   },
   "peerDependencies": {
-    "@rxstack/core": "^0.1",
-    "@rxstack/exceptions": "^0.1",
-    "@rxstack/platform": "^0.1",
-    "@rxstack/query-filter": "^0.1",
-    "@rxstack/security": "^0.1"
+    "@rxstack/core": "^0.2",
+    "@rxstack/exceptions": "^0.2",
+    "@rxstack/platform": "^0.2",
+    "@rxstack/query-filter": "^0.2",
+    "@rxstack/security": "^0.2"
   },
   "dependencies": {
-    "@rxstack/core": "^0.1.2",
-    "@rxstack/exceptions": "^0.1.5",
-    "@rxstack/platform": "^0.1.10",
-    "@rxstack/query-filter": "^0.1.2",
-    "@rxstack/security": "^0.1.7",
-    "@types/mongoose": "^5.3.21",
+    "@rxstack/async-event-dispatcher": "^0.2.0",
+    "@rxstack/core": "^0.2.3",
+    "@rxstack/exceptions": "^0.2.0",
+    "@rxstack/platform": "^0.2.0",
+    "@rxstack/query-filter": "^0.2.0",
+    "@rxstack/security": "^0.2.0",
+    "@rxstack/service-registry": "^0.2.0",
+    "@types/mongoose": "^5.3.24",
     "injection-js": "^2.1",
-    "mongodb": "^3.1.13",
-    "mongoose": "^5.4.18",
+    "mongodb": "^3.2.2",
+    "mongoose": "^5.4.20",
     "reflect-metadata": "^0.1"
   },
   "devDependencies": {
     "@types/chai": "^4.1.2",
-    "@types/lodash": "^4.14.122",
+    "@types/lodash": "^4.14.123",
     "@types/mocha": "^2.2.48",
-    "@types/node": "^11.11.0",
+    "@types/node": "^11.12.1",
     "chai": "3.5.0",
     "mocha": "^5.2.0",
     "nyc": "^13.3.0",
@@ -59,8 +62,8 @@
     "sinon": "^6.3.4",
     "source-map-support": "^0.4.15",
     "ts-node": "^3.1.0",
-    "tslint": "^5.13.1",
-    "typescript": "^3.3.3333",
+    "tslint": "^5.14.0",
+    "typescript": "^3.3.4000",
     "uuid": "^3.3.2"
   },
   "bugs": {
