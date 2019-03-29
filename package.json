@@ -37,13 +37,6 @@
     "@rxstack/security": "^0.2"
   },
   "dependencies": {
-    "@rxstack/async-event-dispatcher": "^0.2.0",
-    "@rxstack/core": "^0.2.3",
-    "@rxstack/exceptions": "^0.2.0",
-    "@rxstack/platform": "^0.2.0",
-    "@rxstack/query-filter": "^0.2.0",
-    "@rxstack/security": "^0.2.0",
-    "@rxstack/service-registry": "^0.2.0",
     "@types/mongoose": "^5.3.24",
     "injection-js": "^2.1",
     "mongodb": "^3.2.2",
