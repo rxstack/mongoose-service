@@ -30,7 +30,7 @@
 npm install @rxstack/mongoose-service --save
 
 // peer depencencies
-npm install @rxstack/core@^0.4 @rxstack/exceptions@^0.4 @rxstack/platform@^0.4 @rxstack/query-filter@^0.4 @rxstack/security@^0.4  @rxstack/async-event-dispatcher@^0.4  @rxstack/service-registry@^0.4
+npm install @rxstack/core@^0.5 @rxstack/exceptions@^0.5 @rxstack/platform@^0.5 @rxstack/query-filter@^0.5 @rxstack/security@^0.5 @rxstack/async-event-dispatcher@^0.5 @rxstack/service-registry@^0.5 winston@^3.2.1
 
 ```
 
@@ -56,10 +56,7 @@ export const APP_OPTIONS: ApplicationOptions = {
   ],
   providers: [
     // ...
-  ],
-  logger: {
-    // ...
-  }
+  ]
 };
 
 new Application(APP_OPTIONS).start();
@@ -70,7 +67,7 @@ new Application(APP_OPTIONS).start();
 - `connection.url`: mongodb server uri
 - `connection.options`: mongoose options (optional)
 - `logger.enabled`: enable query logging (defaults to false)
-- `logger.level`: logging level (defaults to debug), [LoggingLevel](https://github.com/rxstack/rxstack/blob/master/packages/core/src/logger/interfaces.ts#L3)
+- `logger.level`: logging level (defaults to debug)
 
 ## <a name="service-options"></a> Service Options
 In addition to [service base options](https://github.com/rxstack/rxstack/tree/preparing-release/packages/platform#services-options)
@@ -143,7 +140,7 @@ export const APP_OPTIONS: ApplicationOptions = {
 ```typescript
 import {Connection} from 'mongoose';
 import {Injectable} from 'injection-js';
-import {Http, Logger, Request, Response, WebSocket, InjectorAwareInterface} from '@rxstack/core';
+import {Http, Request, Response, WebSocket, InjectorAwareInterface} from '@rxstack/core';
 
 @Injectable()
 export class ProductController implements InjectorAwareInterface {

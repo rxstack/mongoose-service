@@ -33,15 +33,5 @@ export const MONGOOSE_SERVICE_OPTIONS: ApplicationOptions = {
       },
       deps: [Connection],
     },
-  ],
-  logger: {
-    handlers: [
-      {
-        type: 'console',
-        options: {
-          level: 'silly',
-        }
-      }
-    ]
-  },
+  ]
 };

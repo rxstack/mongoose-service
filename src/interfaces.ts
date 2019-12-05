@@ -1,5 +1,4 @@
 import {ServiceOptions} from '@rxstack/platform';
-import {LoggingLevel} from '@rxstack/core';
 import {ConnectionOptions, Model} from 'mongoose';
 
 export interface MongooseServiceModuleOptions {
@@ -9,7 +8,7 @@ export interface MongooseServiceModuleOptions {
   };
   logger?: {
     enabled: boolean;
-    level?: LoggingLevel
+    level?: string
   };
 }
 

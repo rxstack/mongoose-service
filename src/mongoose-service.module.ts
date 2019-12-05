@@ -7,7 +7,7 @@ import {DropCommand, EnsureIndexesCommand} from './commands';
 import {ValidationObserver} from './validation.observer';
 mongoose.Promise = global.Promise;
 
-const winstonLogger = require('winston');
+const winston = require('winston');
 
 const connectionProvider =  async function(options: MongooseServiceModuleOptions): Promise<Provider> {
   const connection: Connection = await mongoose.createConnection(options.connection.uri, options.connection.options);
@@ -20,7 +20,7 @@ export class MongooseServiceModule {
     configuration.logger = Object.assign({enabled: false, level: 'debug'}, configuration.logger);
     if (configuration.logger.enabled) {
       mongoose.set(configuration.logger.level, (collectionName: string, method: string, query: Object, doc: any) => {
-        winstonLogger.log(configuration.logger.level, 'Mongoose', {
+        winston.log(configuration.logger.level, 'Mongoose', {
           'method': `${collectionName}.${method}`,
           'query': query,
           'doc': doc
