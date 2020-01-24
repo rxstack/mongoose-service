@@ -14,13 +14,9 @@ describe('MongooseService:Impl', () => {
   let service: MongooseService<Task>;
 
   before(async() =>  {
-    await app.start();
+    await app.run();
     injector = app.getInjector();
     service = injector.get(TASK_SERVICE);
-  });
-
-  after(async() =>  {
-    await app.stop();
   });
 
   beforeEach(async () => {

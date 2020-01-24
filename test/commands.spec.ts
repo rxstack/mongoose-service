@@ -9,12 +9,8 @@ describe('Console:Commands', () => {
   let conn: Connection;
 
   before(async () => {
-    await app.start();
+    await app.run();
     conn = app.getInjector().get(Connection);
-  });
-
-  after(async () => {
-    await app.stop();
   });
 
   beforeEach(async () => {
