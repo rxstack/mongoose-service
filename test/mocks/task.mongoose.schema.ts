@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-const uuid = require('uuid/v4');
+const { v4: uuid } = require('uuid');
 
 export const taskMongooseSchema = new Schema({
   _id: {
