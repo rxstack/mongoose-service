@@ -30,7 +30,7 @@
 npm install @rxstack/mongoose-service --save
 
 // peer depencencies
-npm install @rxstack/core@^0.6 @rxstack/exceptions@^0.5 @rxstack/platform@^0.6 @rxstack/query-filter@^0.5 @rxstack/security@^0.6 @rxstack/async-event-dispatcher@^0.5 @rxstack/service-registry@^0.5 winston@^3.2.1
+npm install --no-save @rxstack/core@^0.7 @rxstack/exceptions@^0.6 @rxstack/platform@^0.7 @rxstack/query-filter@^0.6 @rxstack/security@^0.7 @rxstack/async-event-dispatcher@^0.6 @rxstack/service-registry@^0.6 winston@^3.3.3
 
 ```
 
@@ -96,7 +96,7 @@ export const PRODUCT_SERVICE = new InjectionToken<MongooseService<Product>>('PRO
 
 ```typescript
 import { Schema } from 'mongoose';
-const uuid = require('uuid/v4');
+const { v4: uuid } = require('uuid');
 
 export const productMongooseSchema = new Schema({
   _id: {
@@ -154,8 +154,6 @@ export class ProductController implements InjectorAwareInterface {
     // standard use
     const service = this.injector.get(PRODUCT_SERVICE);
     await service.insertOne(request.body);
-    // with driver specific options
-    await service.insertOne(request.body, {projection: {name: 1}});
   }
 }
 ```
