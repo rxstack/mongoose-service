@@ -50,7 +50,7 @@ export class MongooseService<T> implements ServiceInterface<T>, InjectorAwareInt
   }
 
   async count(criteria?: Object, options?: any): Promise<number> {
-    return await this.getModel().find(criteria, null, options).countDocuments().exec();
+    return await this.getModel().countDocuments(criteria).exec();
   }
 
   async find(id: any, options?: any): Promise<T> {
