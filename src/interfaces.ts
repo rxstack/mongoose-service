@@ -14,4 +14,5 @@ export interface MongooseServiceModuleOptions {
 
 export interface MongooseServiceOptions extends ServiceOptions {
   model: Model<any>;
+  countLimit?: number;
 }

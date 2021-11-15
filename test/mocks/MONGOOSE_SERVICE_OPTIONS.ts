@@ -28,7 +28,7 @@ export const MONGOOSE_SERVICE_OPTIONS: ApplicationOptions = {
       provide: TASK_SERVICE,
       useFactory: (conn: Connection) => {
         return new MongooseService({
-          idField: '_id', defaultLimit: 25, model: conn.model('Task', taskMongooseSchema)
+          idField: '_id', defaultLimit: 25, model: conn.model('Task', taskMongooseSchema), countLimit: 1000
         });
       },
       deps: [Connection],
