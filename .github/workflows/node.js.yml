@@ -35,3 +35,7 @@ jobs:
     - run: npm install
     - run: npm install --no-save @rxstack/core@^0.7 @rxstack/exceptions@^0.6 @rxstack/platform@^0.7 @rxstack/query-filter@^0.6 @rxstack/security@^0.7 @rxstack/async-event-dispatcher@^0.6 @rxstack/service-registry@^0.6 winston@^3.3.3
     - run: npm test
+    - name: Test & publish code coverage
+      uses: paambaati/codeclimate-action@v3.0.0
+      env:
+        CC_TEST_REPORTER_ID: b3658fd0ee9f4a540c536bf6b43b81ac3794b85fbc991abca086a90296f7b381
