@@ -28,10 +28,6 @@
 
 ```
 npm install @rxstack/mongoose-service --save
-
-// peer depencencies
-npm install --no-save @rxstack/core@^0.7 @rxstack/exceptions@^0.6 @rxstack/platform@^0.7 @rxstack/query-filter@^0.6 @rxstack/security@^0.7 @rxstack/async-event-dispatcher@^0.6 @rxstack/service-registry@^0.6 winston@^3.3.3
-
 ```
 
 ## <a name="setup"></a>  Setup
@@ -47,10 +43,7 @@ export const APP_OPTIONS: ApplicationOptions = {
       connection: {
         uri: process.env.MONGO_HOST, // mongodb://localhost:27017/test
         // mongoose options
-        options: {
-          useNewUrlParser: true,
-          useCreateIndex: true,
-        }
+        options: { }
       },
     })
   ],
@@ -70,7 +63,7 @@ new Application(APP_OPTIONS).start();
 - `logger.level`: logging level (defaults to debug)
 
 ## <a name="service-options"></a> Service Options
-In addition to [service base options](https://github.com/rxstack/rxstack/tree/preparing-release/packages/platform#services-options)
+In addition to [service base options](https://github.com/rxstack/rxstack/tree/master/packages/platform#services)
 we need to set the following options:
 
 - `model`: [mongoose model](https://mongoosejs.com/docs/models.html)

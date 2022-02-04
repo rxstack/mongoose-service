@@ -10,7 +10,7 @@ export class EnsureIndexesCommand extends AbstractCommand {
   command = 'mongoose:ensure-indexes';
   describe = 'Makes the indexes in MongoDB match the indexes defined in this model\'s schema';
 
-  async handler(argv: any): Promise<void> {
+  async handler(): Promise<void> {
     console.log(chalk.blue('Ensuring indexes ...'));
     const conn = this.injector.get(Connection);
     const models = keys(conn.models);

@@ -19,7 +19,7 @@ export class MongooseServiceModule {
   static configure(configuration: MongooseServiceModuleOptions): ModuleWithProviders {
     configuration.logger = Object.assign({enabled: false, level: 'debug'}, configuration.logger);
     if (configuration.logger.enabled) {
-      mongoose.set(configuration.logger.level, (collectionName: string, method: string, query: Object, doc: any) => {
+      mongoose.set('debug', (collectionName: string, method: string, query: Object, doc: any) => {
         winston.log(configuration.logger.level, 'Mongoose', {
           'method': `${collectionName}.${method}`,
           'query': query,

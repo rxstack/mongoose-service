@@ -9,7 +9,7 @@ export class DropCommand extends AbstractCommand {
   command = 'mongoose:drop';
   describe = 'Drop databases, collections and indexes for your documents.';
 
-  async handler(argv: any): Promise<void> {
+  async handler(): Promise<void> {
     console.log(chalk.blue('Dropping database ...'));
     const conn = this.injector.get(Connection);
     await conn.dropDatabase();

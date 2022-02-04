@@ -1,10 +1,10 @@
 import {ServiceOptions} from '@rxstack/platform';
-import {ConnectionOptions, Model} from 'mongoose';
+import {ConnectOptions, Model} from 'mongoose';
 
 export interface MongooseServiceModuleOptions {
   connection: {
     uri: string;
-    options?: ConnectionOptions;
+    options?: ConnectOptions;
   };
   logger?: {
     enabled: boolean;

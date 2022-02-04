@@ -37,7 +37,7 @@ export class MongooseService<T> implements ServiceInterface<T>, InjectorAwareInt
     const result = await this.getModel().updateMany(criteria, data, Object.assign(
       { runValidators: true }, options
     )).exec();
-    return result.nModified;
+    return result.matchedCount;
   }
 
   async removeOne(id: any): Promise<void> {
