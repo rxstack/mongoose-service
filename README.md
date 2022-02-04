@@ -70,7 +70,7 @@ new Application(APP_OPTIONS).start();
 - `logger.level`: logging level (defaults to debug)
 
 ## <a name="service-options"></a> Service Options
-In addition to [service base options](https://github.com/rxstack/rxstack/tree/preparing-release/packages/platform#services-options)
+In addition to [service base options](https://github.com/rxstack/rxstack/tree/master/packages/platform#services-options)
 we need to set the following options:
 
 - `model`: [mongoose model](https://mongoosejs.com/docs/models.html)
