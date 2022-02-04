@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
-        mongodb-version: ['4.4', '5.0']
+        mongodb-version: ['3.4', '4.4', '5.0']
 
     env:
       MONGO_HOST: "mongodb://localhost:27017/test"
