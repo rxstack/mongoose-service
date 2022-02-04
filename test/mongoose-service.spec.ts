@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import {Application} from '@rxstack/core';
-import {MONGOOSE_SERVICE_OPTIONS, TASK_SERVICE} from './mocks/MONGOOSE_SERVICE_OPTIONS';
+import {MONGOOSE_SERVICE_OPTIONS, PROJECT_SERVICE, TASK_SERVICE} from './mocks/MONGOOSE_SERVICE_OPTIONS';
 import {Injector} from 'injection-js';
 import {MongooseService} from '../src';
 import {data1} from './mocks/data';
@@ -94,10 +94,16 @@ describe('MongooseService:Impl', () => {
     (typeof result[0]['name']).should.be.equal('undefined');
   });
 
-  it('#count', async () => {
+  it('#count with no limit', async () => {
+    const projectService = injector.get(PROJECT_SERVICE);
+    const result = await projectService.count();
+    result.should.be.equal(0);
+  });
+
+  it('#count with query and limit', async () => {
     await service.insertMany(data1);
-    const result = await service.count();
-    result.should.be.equal(3);
+    const result = await service.count({'name': {'$eq': 'task-1'}});
+    result.should.be.equal(1);
   });
 
   it('#count with query', async () => {

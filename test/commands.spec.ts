@@ -18,12 +18,13 @@ describe('Console:Commands', () => {
   });
 
   it('should sync indexes', async () => {
+    await conn.dropDatabase();
     const beforeColl = await conn.db.listCollections().toArray();
     beforeColl.length.should.be.equal(0);
     const command = app.getInjector().get(CommandManager).getCommand('mongoose:ensure-indexes');
     await command.handler({});
     const afterColl = await conn.db.listCollections().toArray();
-    afterColl.length.should.be.equal(1);
+    afterColl.length.should.be.equal(2);
   });
 
   it('should drop database', async () => {
