@@ -9,9 +9,11 @@ export class ValidationObserver {
   @Observe(KernelEvents.KERNEL_EXCEPTION)
   async onException(event: ExceptionEvent): Promise<void> {
     if (event.getException().name === 'ValidationError'
+      // @ts-ignore
       && typeof event.getException().originalError['errors'] === 'object') {
       const exception = new BadRequestException('Validation Failed');
       exception.data = { errors: [] };
+      // @ts-ignore
       _.forEach(event.getException().originalError['errors'], (v: any, key: string) => {
         exception.data.errors.push({
           path: key,
