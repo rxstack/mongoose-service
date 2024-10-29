@@ -56,15 +56,15 @@ export class MongooseService<T> implements ServiceInterface<T>, InjectorAwareInt
     return await this.getModel().countDocuments(criteria).exec();
   }
 
-  async find(id: any, options?: any): Promise<T> {
+  async find(id: any, options?: any): Promise<any> {
     return await this.findOne({[this.options.idField]: id});
   }
 
-  async findOne(criteria: Object, options?: any): Promise<T> {
+  async findOne(criteria: Object, options?: any): Promise<any> {
     return await this.getModel().findOne(criteria, this.getProjection(options), options).lean(true).exec();
   }
 
-  async findMany(query?: QueryInterface, options?: any): Promise<T[]> {
+  async findMany(query?: QueryInterface, options?: any): Promise<any[]> {
     query = Object.assign({where: {}, limit: this.options.defaultLimit, skip: 0, sort: null}, query);
     const modelQuery = this.getModel().find(query.where, this.getProjection(options), options);
     modelQuery.sort(query.sort);

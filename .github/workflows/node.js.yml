@@ -1,3 +1,6 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
 name: Node.js CI
 
 on:
@@ -10,15 +13,14 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-      
+
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [20.x, 21.x, 22.x]
         mongodb-version: ['4.4', '5.0']
-
     env:
       MONGO_HOST: "mongodb://localhost:27017/test"
-      
+
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -27,14 +29,17 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: Start MongoDB
-      uses: supercharge/mongodb-github-action@1.7.0
-      with:
-        mongodb-version: ${{ matrix.mongodb-version }}
+        uses: supercharge/mongodb-github-action@1.11.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
     - run: npm ci
-    - run: npm install
-    - run: npm install --no-save @rxstack/core@^0.7 @rxstack/exceptions@^0.6 @rxstack/platform@^0.7 @rxstack/query-filter@^0.6 @rxstack/security@^0.7 @rxstack/async-event-dispatcher@^0.6 @rxstack/service-registry@^0.6 winston@^3.5
-    - run: npm test
+    - run: npm install @rxstack/core@^0.8 @rxstack/exceptions@^0.8 @rxstack/platform@^0.8 @rxstack/query-filter@^0.8 @rxstack/security@^0.8 @rxstack/async-event-dispatcher@^0.8 @rxstack/service-registry@^0.8 winston@^3.5
     - name: Test & publish code coverage
-      uses: paambaati/codeclimate-action@v3.0.0
+      uses: paambaati/codeclimate-action@v9.0.0
       env:
         CC_TEST_REPORTER_ID: b3658fd0ee9f4a540c536bf6b43b81ac3794b85fbc991abca086a90296f7b381
+      with:
+        coverageCommand: npm run test
+        coverageLocations: |
+          ${{github.workspace}}/coverage/lcov.info:lcov
+        debug: true

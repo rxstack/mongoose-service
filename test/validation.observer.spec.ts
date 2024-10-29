@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import {describe, expect, it, beforeAll, afterAll, beforeEach, afterEach} from '@jest/globals';
 import {Application, ExceptionEvent, Request} from '@rxstack/core';
 import {MONGOOSE_SERVICE_OPTIONS, TASK_SERVICE} from './mocks/MONGOOSE_SERVICE_OPTIONS';
 import {Injector} from 'injection-js';
@@ -9,17 +10,27 @@ import * as _ from 'lodash';
 import {Exception, transformToException} from '@rxstack/exceptions';
 import {ValidationObserver} from '../src/validation.observer';
 
+function wait(milliseconds: number): Promise<unknown> {
+  return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
 describe('MongooseService:ValidationObserver', () => {
   // Setup application
   const app = new Application(MONGOOSE_SERVICE_OPTIONS);
   let injector: Injector;
   let service: MongooseService<Task>;
 
-  before(async() =>  {
+  beforeAll(async() =>  {
     await app.run();
     injector = app.getInjector();
     service = injector.get(TASK_SERVICE);
   });
+
+  afterAll(async() =>  {
+    await injector.get(Connection).close();
+    await wait(1000);
+  });
+
 
   beforeEach(async () => {
     await injector.get(Connection).dropDatabase();
@@ -40,8 +51,8 @@ describe('MongooseService:ValidationObserver', () => {
     try {
       await observer.onException(event);
     } catch (e) {
-      _.isEqual(e.data['errors'],
-        [ { path: 'name', value: '', message: 'Path `name` is required.' } ]).should.be.equal(true);
+      expect(_.isEqual(e.data['errors'],
+        [ { path: 'name', value: '', message: 'Path `name` is required.' } ])).toBeTruthy();
     }
   });
 });

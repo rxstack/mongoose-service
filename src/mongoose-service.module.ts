@@ -5,7 +5,7 @@ import {MongooseServiceModuleOptions} from './interfaces';
 import {Provider} from 'injection-js';
 import {DropCommand, EnsureIndexesCommand} from './commands';
 import {ValidationObserver} from './validation.observer';
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 
 const winston = require('winston');
 
